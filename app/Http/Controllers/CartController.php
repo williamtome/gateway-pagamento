@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Products;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -13,7 +14,9 @@ class CartController extends Controller
      */
     public function index()
     {
-        //
+        $carrinho = session()->get('carrinho');
+        $itens = Products::whereIn('id', [$carrinho])->get();
+        return view('carts.index', ['itens' => $itens]);
     }
 
     /**
@@ -35,7 +38,7 @@ class CartController extends Controller
     public function store(Request $request)
     {
         $request->session()->put('carrinho.item', $request->item);
-
+        return redirect()->route('carrinho.index');
     }
 
     /**

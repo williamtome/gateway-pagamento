@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'ProductsController@index')->name('product.index');
-Route::get('/produto/{id}', 'ProductsController@show')->name('product.show');
 
+Route::resources([
+    'produto' => 'ProductsController',
+    'carrinho' => 'CartController'
+]);

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\Products;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
@@ -24,7 +25,8 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        //
+        $product = Products::find(session()->get('carrinho.item'));
+        return view('customer.create', ['product' => $product]);
     }
 
     /**

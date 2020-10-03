@@ -17,5 +17,6 @@ Route::get('/', 'ProductsController@index');
 Route::resources([
     'produto' => 'ProductsController',
     'carrinho' => 'CartController',
-    'cliente' => 'CustomerController'
+    'cliente' => 'CustomerController',
+    'pagamento' => 'PaymentController'
 ]);

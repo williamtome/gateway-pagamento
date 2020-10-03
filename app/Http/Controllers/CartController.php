@@ -38,7 +38,7 @@ class CartController extends Controller
     public function store(Request $request)
     {
         $request->session()->put('carrinho.item', $request->item);
-        return redirect()->route('carrinho.index');
+        return redirect()->route('cliente.create');
     }
 
     /**

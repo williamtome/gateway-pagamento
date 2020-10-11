@@ -14,6 +14,7 @@
                 <div class="tab-pane fade show active mt-4" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <form action="{{route('cliente.store')}}" method="post">
                         @csrf
+                        <input type="hidden" name="brand" id="bandeira">
                         <div class="row">
                             <div class="col-6">
                                 <div class="row">
@@ -176,5 +177,13 @@
             </div>
         </div>
     </div>
+
+    <script src="{{ config('app.pagseguro.url_js') }}"></script>
+    <script>
+        // Obter sessão do PagSeguro:
+        const credenciais = fetch("{{ route('pagamento.pagseguro.credenciais') }}")
+            .then(response => console.log(response))
+            .catch(error => console.log(error));
+    </script>
 
 @endsection

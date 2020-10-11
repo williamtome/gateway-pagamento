@@ -17,4 +17,14 @@ class PaymentController extends Controller
         $product = Products::find(session()->get('carrinho.item'));
         return view('payment.create', ['product' => $product]);
     }
+
+    public function getCredentials()
+    {
+        return 'OK';
+        // try {
+        //     $sessionCode  = '';
+        // } catch (\Throwable $th) {
+        //     return $th->getMessage();
+        // }
+    }
 }

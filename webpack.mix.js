@@ -13,4 +13,5 @@ const mix = require('laravel-mix');
 
 mix.styles('node_modules/bootstrap/dist/css/bootstrap.min.css', 'public/css/bootstrap.min.css')
     .scripts('node_modules/jquery/dist/jquery.min.js', 'public/js/jquery.min.js')
-    .scripts('node_modules/bootstrap/dist/js/bootstrap.bundle.min.js', 'public/js/bootstrap.min.js');
+    .scripts('node_modules/bootstrap/dist/js/bootstrap.bundle.min.js', 'public/js/bootstrap.min.js')
+    .scripts('node_modules/cleave.js/dist/cleave.min.js', 'public/js/cleave.min.js');

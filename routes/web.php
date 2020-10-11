@@ -20,3 +20,6 @@ Route::resources([
     'cliente' => 'CustomerController',
     'pagamento' => 'PaymentController'
 ]);
+
+Route::get('/pagamento/pagseguro/credenciais', 'PaymentController@getCredentials')
+    ->name('pagamento.pagseguro.credenciais');

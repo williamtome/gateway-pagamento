@@ -33,7 +33,7 @@
                         </div>
                         <div class="form-group">
                             <label for="phone">Telefone (Comercial ou celular)</label>
-                            <input type="text" name="phone" class="form-control" required>
+                            <input type="text" name="phone" class="phone form-control" required>
                             @error('phone')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -52,5 +52,14 @@
             </form>
         </div>
     </div>
+
+    <script src="{{ asset('js/cleave.min.js') }}"></script>
+
+    <script>
+        const inputPhone = document.querySelector('.phone');
+        const cleavePhone = new Cleave(inputPhone, {
+            phone: true
+        });
+    </script>
 
 @endsection

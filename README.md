@@ -5,5 +5,5 @@ Este projeto tem como objetivo aprender como integrar uma aplicação Laravel co
 ## Tecnologias
 
 * Laravel
-* (SDK do Pagseguro)[https://github.com/pagseguro/pagseguro-sdk-php]
+* SDK do Pagseguro [https://github.com/pagseguro/pagseguro-sdk-php]
 * Javascript

@@ -181,8 +181,12 @@
     <script src="{{ config('app.pagseguro.url_js') }}"></script>
     <script>
         // Obter sessão do PagSeguro:
-        const credenciais = fetch("{{ route('pagamento.pagseguro.credenciais') }}")
-            .then(response => console.log(response))
+        fetch("{{ route('pagamento.pagseguro.credenciais') }}")
+            .then(response => {
+                response.text().then(hash => {
+                    PagSeguroDirectPayment.setSessionId(hash);
+                })
+            })
             .catch(error => console.log(error));
     </script>
 

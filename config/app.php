@@ -110,6 +110,30 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | PagSeguro Environment Variables
+    |--------------------------------------------------------------------------
+    |
+    | São as variáveis necessárias paea a apicação efetuar o pagamento
+    | com as apis do PagSeguro.
+    |
+    */
+    'pagseguro' => [
+        'environment' => env('PAGSEGURO_AMBIENTE'),
+        'email' => env('PAGSEGURO_EMAIL'),
+        'token' => env('PAGSEGURO_TOKEN'),
+        'session' => env('PAGSEGURO_SESSION'),
+        'url_js' => env('PAGSEGURO_URL_JS'),
+        'transaction' => env('PAGSEGURO_URL_TRANSACTION'),
+        'max_installment' => env('PAGSEGURO_MAX_INSTALLMENT'),
+        'max_installment_no_interest' => env('PAGSEGURO_MAX_INSTALLMENT_NO_INTEREST')
+    ],
+
+    'key' => env('APP_KEY'),
+
+    'cipher' => 'AES-256-CBC',
+
+    /*
+    |--------------------------------------------------------------------------
     | Encryption Key
     |--------------------------------------------------------------------------
     |
@@ -118,10 +142,6 @@ return [
     | will not be safe. Please do this before deploying an application!
     |
     */
-
-    'key' => env('APP_KEY'),
-
-    'cipher' => 'AES-256-CBC',
 
     /*
     |--------------------------------------------------------------------------

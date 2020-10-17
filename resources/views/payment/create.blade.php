@@ -183,11 +183,47 @@
         // Obter sessão do PagSeguro:
         fetch("{{ route('pagamento.pagseguro.credenciais') }}")
             .then(response => {
-                response.text().then(hash => {
+                response.text().then(function(hash) {
                     PagSeguroDirectPayment.setSessionId(hash);
+                    obterMeiosDePagamento();
                 })
             })
-            .catch(error => console.log(error));
+            .catch(error => {
+                console.log(error);
+            });
+
+        function obterMeiosDePagamento() {
+            // Obter opções de pagamento:
+            PagSeguroDirectPayment.getPaymentMethods({
+                amount: {{ $product->price }},
+                success: function(response) {
+                    const results = response.paymentMethods.CREDIT_CARD.options;
+                    console.log('RESULTADO:', results);
+                    results.forEach(result => {
+                        if(option.name == 'ELO' || option.name == 'MASTERCARD' || option.name == 'VISA' || option.name == 'HIPERCARD'){
+                            let brandImage = document.createElement('img')
+                                .setAttribute('src', 'https://stc.pagseguro.uol.com.br'+option.images.MEDIUM.path)
+                                console.log(brandImage);
+                            document.querySelector('#brands').appendChild(brandImage);
+                        }
+                    });
+                    // results.map(function(option) {
+                    //     console.log(option);
+                    //     if(option.name == 'ELO' || option.name == 'MASTERCARD' || option.name == 'VISA' || option.name == 'HIPERCARD'){
+                    //         console.log('true');
+                    //         let brandImage = document.createElement('img')
+                    //             .setAttribute('src', 'https://stc.pagseguro.uol.com.br'+option.images.MEDIUM.path)
+                    //         document.querySelector('#brands').appendChild(brandImage);
+                    //     }
+                    // });
+                },
+                error: function(error) {
+                    if (error === true) {
+                        alert('Desculpe, houve um erro ao tentar obter as opções de pagamento.');
+                    }
+                }
+            });
+        }
     </script>
 
 @endsection

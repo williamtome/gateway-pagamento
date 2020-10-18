@@ -197,25 +197,26 @@
             PagSeguroDirectPayment.getPaymentMethods({
                 amount: {{ $product->price }},
                 success: function(response) {
-                    const results = response.paymentMethods.CREDIT_CARD.options;
-                    console.log('RESULTADO:', results);
-                    results.forEach(result => {
+                    const options = response.paymentMethods.CREDIT_CARD.options;
+                    // console.log('RESULTADO:', options);
+                    // for(let option in response.paymentMethods.CREDIT_CARD.options){
+                    //     console.log(option);
+                    //     if(option.name == 'ELO' || option.name == 'MASTERCARD' || option.name == 'VISA' || option.name == 'HIPERCARD'){
+                    //         let brandImage = document.createElement('img')
+                    //             .setAttribute('src', 'https://stc.pagseguro.uol.com.br'+option.images.MEDIUM.path)
+                    //             console.log(brandImage);
+                    //         document.querySelector('#brands').appendChild(brandImage);
+                    //     }
+                    // };
+                    let result = response.paymentMethods.CREDIT_CARD.options.map(function(index, option) {
                         if(option.name == 'ELO' || option.name == 'MASTERCARD' || option.name == 'VISA' || option.name == 'HIPERCARD'){
+                            console.log('true');
                             let brandImage = document.createElement('img')
                                 .setAttribute('src', 'https://stc.pagseguro.uol.com.br'+option.images.MEDIUM.path)
-                                console.log(brandImage);
                             document.querySelector('#brands').appendChild(brandImage);
                         }
                     });
-                    // results.map(function(option) {
-                    //     console.log(option);
-                    //     if(option.name == 'ELO' || option.name == 'MASTERCARD' || option.name == 'VISA' || option.name == 'HIPERCARD'){
-                    //         console.log('true');
-                    //         let brandImage = document.createElement('img')
-                    //             .setAttribute('src', 'https://stc.pagseguro.uol.com.br'+option.images.MEDIUM.path)
-                    //         document.querySelector('#brands').appendChild(brandImage);
-                    //     }
-                    // });
+                    console.log(result);
                 },
                 error: function(error) {
                     if (error === true) {

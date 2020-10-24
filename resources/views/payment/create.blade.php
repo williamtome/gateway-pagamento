@@ -12,9 +12,9 @@
             </ul>
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active mt-4" id="home" role="tabpanel" aria-labelledby="home-tab">
-                    <form action="{{route('cliente.store')}}" method="post">
+                    <form action="{{route('pagamento.store')}}" method="post">
                         @csrf
-                        <input type="hidden" name="brand" id="bandeira">
+                        <input type="hidden" name="brand" id="brand">
                         <div class="row">
                             <div class="col-6">
                                 <div class="row">
@@ -94,9 +94,9 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label for="">Número*</label>
-                                            <input type="text" name="numero" maxlength="20" class="form-control numero @error('numero') is-invalid @enderror" required>
-                                            @error('numero')
+                                            <label for="number">Número*</label>
+                                            <input type="text" name="number" maxlength="20" class="form-control number @error('number') is-invalid @enderror" required>
+                                            @error('number')
                                                 <div class="invalid-feedback">
                                                     {{$message}}
                                                 </div>
@@ -105,9 +105,9 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label for="complemento">Complemento *</label>
-                                            <input type="text" id="complemento" name="complemento" class="form-control complemento @error('complemento') is-invalid @enderror" required>
-                                            @error('complemento')
+                                            <label for="complement">Complemento *</label>
+                                            <input type="text" id="complement" name="complement" class="form-control complement @error('complement') is-invalid @enderror" required>
+                                            @error('complement')
                                             <div class="invalid-feedback">
                                                 {{$message}}
                                             </div>
@@ -116,9 +116,9 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label for="bairro">Bairro *</label>
-                                            <input type="text" id="bairro" name="bairro" class="form-control bairro @error('bairro') is-invalid @enderror" required readonly>
-                                            @error('bairro')
+                                            <label for="district">Bairro *</label>
+                                            <input type="text" id="district" name="district" class="form-control district @error('district') is-invalid @enderror" required readonly>
+                                            @error('district')
                                             <div class="invalid-feedback">
                                                 {{$message}}
                                             </div>
@@ -127,9 +127,9 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label for="cidade">Cidade *</label>
-                                            <input type="text" id="cidade" name="cidade" class="form-control cidade @error('cidade') is-invalid @enderror" required readonly>
-                                            @error('cidade')
+                                            <label for="city">Cidade *</label>
+                                            <input type="text" id="city" name="city" class="form-control city @error('city') is-invalid @enderror" required readonly>
+                                            @error('city')
                                             <div class="invalid-feedback">
                                                 {{$message}}
                                             </div>
@@ -138,9 +138,9 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label for="uf">UF *</label>
-                                            <input type="text" id="uf" name="uf" class="form-control uf @error('uf') is-invalid @enderror" required readonly>
-                                            @error('uf')
+                                            <label for="state">UF *</label>
+                                            <input type="text" id="state" name="state" class="form-control state @error('state') is-invalid @enderror" required readonly>
+                                            @error('state')
                                             <div class="invalid-feedback">
                                                 {{$message}}
                                             </div>
@@ -149,11 +149,11 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label for="pais">País *</label>
-                                            <select name="pais" class="form-control @error('pais') is-invalid @enderror">
+                                            <label for="country">País *</label>
+                                            <select name="country" class="form-control @error('country') is-invalid @enderror">
                                                 <option value="BRA" checked>Brasil</option>
                                             </select>
-                                            @error('pais')
+                                            @error('country')
                                             <div class="invalid-feedback">
                                                 {{$message}}
                                             </div>

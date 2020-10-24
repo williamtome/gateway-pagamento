@@ -211,8 +211,8 @@
                         }
                     };
                 },
-                error: function(error) {
-                    if (error === true) {
+                error: function(resopnse) {
+                    if (resopnse.error === true) {
                         alert('Desculpe, houve um erro ao tentar obter as opções de pagamento.');
                     }
                 }

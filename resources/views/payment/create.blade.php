@@ -180,43 +180,36 @@
 
     <script src="{{ config('app.pagseguro.url_js') }}"></script>
     <script>
-        // Obter sessão do PagSeguro:
+        const urlBrandsPS = 'https://stc.pagseguro.uol.com.br'
+        const divBrands = document.querySelector('#brands')
+        const createImgTag = (url, text) => {
+            const img = document.createElement('img')
+            img.src = url
+            img.alt = text
+            return img
+        }
+
         fetch("{{ route('pagamento.pagseguro.credenciais') }}")
-            .then(response => {
-                response.text().then(function(hash) {
-                    PagSeguroDirectPayment.setSessionId(hash);
-                    obterMeiosDePagamento();
-                })
+            .then(response => response.text())
+            .then(hash => {
+                PagSeguroDirectPayment.setSessionId(hash);
+                obterMeiosDePagamento();
             })
-            .catch(error => {
-                console.log(error);
-            });
+            .catch(error => console.log(error));
 
         function obterMeiosDePagamento() {
-            // Obter opções de pagamento:
             PagSeguroDirectPayment.getPaymentMethods({
                 amount: {{ $product->price }},
                 success: function(response) {
                     const options = response.paymentMethods.CREDIT_CARD.options;
-                    // console.log('RESULTADO:', options);
-                    // for(let option in response.paymentMethods.CREDIT_CARD.options){
-                    //     console.log(option);
-                    //     if(option.name == 'ELO' || option.name == 'MASTERCARD' || option.name == 'VISA' || option.name == 'HIPERCARD'){
-                    //         let brandImage = document.createElement('img')
-                    //             .setAttribute('src', 'https://stc.pagseguro.uol.com.br'+option.images.MEDIUM.path)
-                    //             console.log(brandImage);
-                    //         document.querySelector('#brands').appendChild(brandImage);
-                    //     }
-                    // };
-                    let result = response.paymentMethods.CREDIT_CARD.options.map(function(index, option) {
-                        if(option.name == 'ELO' || option.name == 'MASTERCARD' || option.name == 'VISA' || option.name == 'HIPERCARD'){
-                            console.log('true');
-                            let brandImage = document.createElement('img')
-                                .setAttribute('src', 'https://stc.pagseguro.uol.com.br'+option.images.MEDIUM.path)
-                            document.querySelector('#brands').appendChild(brandImage);
+                    const results = Object.entries(options);
+                    for (let i = 0; results.length > i; i++) {
+                        let nameBrand = results[i][0]
+                        if(nameBrand == 'ELO' || nameBrand == 'MASTERCARD' || nameBrand == 'VISA' || nameBrand == 'HIPERCARD'){
+                            const brandImage = createImgTag(urlBrandsPS + results[i][1].images.MEDIUM.path, nameBrand)
+                            divBrands.appendChild(brandImage);
                         }
-                    });
-                    console.log(result);
+                    };
                 },
                 error: function(error) {
                     if (error === true) {

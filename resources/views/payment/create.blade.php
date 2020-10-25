@@ -182,6 +182,9 @@
     <script>
         const urlBrandsPS = 'https://stc.pagseguro.uol.com.br'
         const divBrands = document.querySelector('#brands')
+        const brand = document.querySelector('#brand')
+        const installmentsField = document.querySelector('[name="installments"]')
+        const cardNumberField = document.querySelector('[name="card_number"]')
         const createImgTag = (url, text) => {
             const img = document.createElement('img')
             img.src = url
@@ -218,6 +221,50 @@
                 }
             });
         }
+
+        cardNumberField.addEventListener('change', () => {
+            if (cardNumberField.value < 6) {
+                alert('Número do cartão está inválido.')
+                return;
+            }
+
+            PagSeguroDirectPayment.getBrand({
+                cardBin: cardNumberField.value.substring(0, 6),
+                success: response => {
+
+                    brand.value = response.brand.name
+                    const formatInstallmentAmount = (amount) => {
+                        return amount.toLocaleString('pt-BR', {
+                            minimumFractionDigits: 2,
+                            style: "currency",
+                            currency: "BRL"
+                        })
+                    }
+
+                    PagSeguroDirectPayment.getInstallments({
+                        amount: {{ $product->price }},
+                        maxInstallmentNoInterest: 12,
+                        brand: brand.value,
+                        success: response => {
+                            // console.log(response.installments[brand.value]);
+                            response.installments[brand.value].forEach(installment => {
+                                console.log(installment);
+                                let option = `<option value="${installment.installmentAmount}">${installment.quantity} X de ${formatInstallmentAmount(installment.installmentAmount)}</option>`
+                                installmentsField.appendChild(option)
+                            })
+                        },
+                        error: response => {
+                            console.log('erro');
+                        }
+                    })
+                },
+                error: response => {
+                    response.error === true
+                        alert('Erro ao obter a bandeira do cartão.')
+                }
+            })
+
+        })
     </script>
 
 @endsection

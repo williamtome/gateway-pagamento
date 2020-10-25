@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PaymentRequest;
 use App\Models\Products;
 use Illuminate\Http\Request;
 
@@ -31,6 +32,12 @@ class PaymentController extends Controller
         return view('payment.create', ['product' => $product]);
     }
 
+    /**
+     * Get the credentials of PagSeguro API
+     *
+     * @return string $hashCode
+     * @throws Throwable
+     **/
     public function getCredentials()
     {
         try {
@@ -44,5 +51,17 @@ class PaymentController extends Controller
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return type
+     * @throws conditon
+     **/
+    public function store(PaymentRequest $request)
+    {
+        # code...
     }
 }

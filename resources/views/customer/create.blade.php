@@ -12,7 +12,7 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label for="cpf">CPF</label>
-                            <input type="text" name="cpf" maxlength="11" class="form-control" value="{{ old('cpf') }}" required>
+                            <input type="text" name="cpf" maxlength="11" class="form-control" placeholder= value="{{ old('cpf') }}" required>
                             @error('cpf')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -26,14 +26,14 @@
                         </div>
                         <div class="form-group">
                             <label for="email">E-mail</label>
-                            <input type="email" name="email" class="form-control" value="{{ old('email') }}" required>
+                            <input type="email" name="email" class="form-control" placeholder="exemplo@domínio.com" value="{{ old('email') }}" required>
                             @error('email')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="phone">Telefone (Comercial ou celular)</label>
-                            <input type="text" name="phone" class="phone form-control" value="{{ old('phone') }}" required>
+                            <input type="text" name="phone" class="phone form-control" placeholder="(XX) XXXXX XXXX" value="{{ old('phone') }}" required>
                             @error('phone')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -54,11 +54,13 @@
     </div>
 
     <script src="{{ asset('js/cleave.min.js') }}"></script>
+    <script src="{{ asset('js/cleave-phone.br.js') }}"></script>
 
     <script>
         const inputPhone = document.querySelector('.phone');
         const cleavePhone = new Cleave(inputPhone, {
-            phone: true
+            phone: true,
+            phoneRegionCode: 'BR'
         });
     </script>
 

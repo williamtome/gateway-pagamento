@@ -12,7 +12,7 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label for="cpf">CPF</label>
-                            <input type="text" name="cpf" maxlength="11" class="form-control" placeholder= value="{{ old('cpf') }}" required>
+                            <input type="text" name="cpf" maxlength="14" class="cpf form-control" value="{{ old('cpf') }}" required>
                             @error('cpf')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -61,6 +61,11 @@
         const cleavePhone = new Cleave(inputPhone, {
             phone: true,
             phoneRegionCode: 'BR'
+        });
+        const cpf = new Cleave('.cpf', {
+            delimiters: ['.', '.', '-'],
+            blocks: [3, 3, 3, 2],
+            uppercase: true
         });
     </script>
 

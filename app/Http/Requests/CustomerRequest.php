@@ -28,7 +28,7 @@ class CustomerRequest extends FormRequest
             'name' => ['required', new NomeCompleto()],
             'cpf' => 'required|cpf',
             'email' => 'required|email',
-            'phone' => 'required|digits_between:13,14'
+            'phone' => 'required|max:13'
         ];
     }
 
@@ -46,7 +46,6 @@ class CustomerRequest extends FormRequest
             'email.required' => 'O campo e-mail é obrigatório.',
             'email.email' => 'O e-mail informado está incorreto.',
             'phone.required' => 'O campo telefone é obrigatório.',
-            'phone.digits_between' => 'O telefone deve conter mínimo 10 e no máximo 11 caracteres.',
         ];
     }
 }

@@ -30,7 +30,7 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="card_name">Nome impresso no cartão</label>
-                                            <input type="text" name="card_name" class="form-control" required>
+                                            <input type="text" name="card_name" class="card_name form-control" required>
                                             @error('card_name')
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -41,7 +41,7 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="card_validate">Validade</label>
-                                            <input type="text" name="card_validate" class="form-control" required>
+                                            <input type="text" name="card_validate" class="form-control" placeholder="MM/AAAA" required>
                                             @error('card_validate')
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -50,7 +50,7 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="card_cvv">Código de segurança</label>
-                                            <input type="text" name="card_cvv" class="form-control" required>
+                                            <input type="text" name="card_cvv" class="form-control" placeholder="Ex: 123" required>
                                             @error('card_cvv')
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -73,7 +73,7 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="cep">CEP</label>
-                                            <input type="text" name="cep" class="form-control @error('cep') is-invalid @enderror" required>
+                                            <input type="text" name="cep" placeholder="00000-000" class="form-control @error('cep') is-invalid @enderror" required>
                                             @error('cep')
                                                 <div class="invalid-feedback">
                                                     {{$message}}
@@ -181,6 +181,9 @@
     <script src="{{ config('app.pagseguro.url_js') }}"></script>
     <script>
         const urlBrandsPS = 'https://stc.pagseguro.uol.com.br'
+        const uppercaseCardName = document.querySelector('.card_name').addEventListener('keyup', function(event){
+            this.value = event.target.value.toUpperCase()
+        })
         const divBrands = document.querySelector('#brands')
         const brand = document.querySelector('#brand')
         const installmentsField = document.querySelector('[name="installments"]')
@@ -228,6 +231,7 @@
                 return;
             }
 
+            console.log(cardNumberField.value);
             PagSeguroDirectPayment.getBrand({
                 cardBin: cardNumberField.value.substring(0, 6),
                 success: response => {
@@ -246,12 +250,13 @@
                         maxInstallmentNoInterest: 12,
                         brand: brand.value,
                         success: response => {
-                            // console.log(response.installments[brand.value]);
-                            response.installments[brand.value].forEach(installment => {
-                                console.log(installment);
-                                let option = `<option value="${installment.installmentAmount}">${installment.quantity} X de ${formatInstallmentAmount(installment.installmentAmount)}</option>`
+                            console.log(response.installments[brand.value]);
+                            let installment = response.installments[brand.value]
+                            for (let i = 0; installment.length > i; i++) {
+                                console.log(installment[i]);
+                                let option = `<option value="${installment[i].installmentAmount}">${installment[i].quantity} X de ${formatInstallmentAmount(installment[i].installmentAmount)}</option>`
                                 installmentsField.appendChild(option)
-                            })
+                            }
                         },
                         error: response => {
                             console.log('erro');

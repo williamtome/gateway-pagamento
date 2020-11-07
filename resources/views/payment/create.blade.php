@@ -250,12 +250,13 @@
                         maxInstallmentNoInterest: 12,
                         brand: brand.value,
                         success: response => {
-                            console.log(response.installments[brand.value]);
-                            let installment = response.installments[brand.value]
-                            for (let i = 0; installment.length > i; i++) {
-                                console.log(installment[i]);
-                                let option = `<option value="${installment[i].installmentAmount}">${installment[i].quantity} X de ${formatInstallmentAmount(installment[i].installmentAmount)}</option>`
-                                installmentsField.appendChild(option)
+                            let installments = response.installments[brand.value]
+                            const result = Object.entries(installments)
+                            console.log(result);
+                            for (let i = 0; result.length > i; i++) {
+                                let option = `<option value="${result[i][1].installmentAmount}">${result[i][1].quantity} X de ${formatInstallmentAmount(result[i][1].installmentAmount)}</option>`
+                                console.log(result[i][1]);
+                                installmentsField.append(option)
                             }
                         },
                         error: response => {

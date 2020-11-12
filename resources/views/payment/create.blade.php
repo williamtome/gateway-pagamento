@@ -41,7 +41,7 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="card_validate">Validade</label>
-                                            <input type="text" name="card_validate" class="form-control" placeholder="MM/AAAA" required>
+                                            <input type="text" name="card_validate" class="card_validate form-control" placeholder="MM/AAAA" required>
                                             @error('card_validate')
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -179,7 +179,15 @@
     </div>
 
     <script src="{{ config('app.pagseguro.url_js') }}"></script>
+    <script src="{{ asset('js/cleave.min.js') }}"></script>
+    <script src="{{ asset('js/cleave-phone.br.js') }}"></script>
     <script>
+        const validate = document.querySelector('.card_validate')
+        const cleaveValidate = new Cleave(validate, {
+            date: true,
+            delimiter: '/',
+            datePattern: ['m', 'Y']
+        })
         const urlBrandsPS = 'https://stc.pagseguro.uol.com.br'
         const uppercaseCardName = document.querySelector('.card_name').addEventListener('keyup', function(event){
             this.value = event.target.value.toUpperCase()

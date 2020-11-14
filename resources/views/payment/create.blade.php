@@ -84,7 +84,7 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="address">Endereço *</label>
-                                            <input type="text" id="address" name="address" class="form-control address @error('address') is-invalid @enderror" required readonly>
+                                            <input type="text" name="address" class="form-control address @error('address') is-invalid @enderror" required readonly>
                                             @error('address')
                                                 <div class="invalid-feedback">
                                                     {{$message}}
@@ -117,7 +117,7 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="district">Bairro *</label>
-                                            <input type="text" id="district" name="district" class="form-control district @error('district') is-invalid @enderror" required readonly>
+                                            <input type="text" name="district" class="form-control district @error('district') is-invalid @enderror" required readonly>
                                             @error('district')
                                             <div class="invalid-feedback">
                                                 {{$message}}
@@ -128,7 +128,7 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="city">Cidade *</label>
-                                            <input type="text" id="city" name="city" class="form-control city @error('city') is-invalid @enderror" required readonly>
+                                            <input type="text" class="form-control city @error('city') is-invalid @enderror" required readonly>
                                             @error('city')
                                             <div class="invalid-feedback">
                                                 {{$message}}
@@ -139,7 +139,7 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="state">UF *</label>
-                                            <input type="text" id="state" name="state" class="form-control state @error('state') is-invalid @enderror" required readonly>
+                                            <input type="text" name="state" class="form-control state @error('state') is-invalid @enderror" required readonly>
                                             @error('state')
                                             <div class="invalid-feedback">
                                                 {{$message}}
@@ -193,6 +193,11 @@
             blocks: [5, 3]
         })
         const urlBrandsPS = 'https://stc.pagseguro.uol.com.br'
+        let apiCep = ``
+        document.querySelector('.cep').addEventListener('keyup', (ev) => {
+            const cepSemFormatacao = cep.getRawValue()
+            apiCep = `https://viacep.com.br/ws/${cepSemFormatacao}/json/`
+        })
         const uppercaseCardName = document.querySelector('.card_name').addEventListener('keyup', function(event){
             this.value = event.target.value.toUpperCase()
         })
@@ -243,7 +248,6 @@
                 return;
             }
 
-            console.log(cardNumberField.value);
             PagSeguroDirectPayment.getBrand({
                 cardBin: cardNumberField.value.substring(0, 6),
                 success: response => {
@@ -264,7 +268,6 @@
                         success: response => {
                             let installments = response.installments[brand.value]
                             const result = Object.entries(installments)
-                            console.log(result);
                             for (let i = 0; result.length > i; i++) {
                                 let option = document.createElement('option')
                                 option.value = result[i][1].installmentAmount
@@ -284,6 +287,25 @@
             })
 
         })
+
+
+        document.querySelector('.cep').addEventListener('focusout', () => {
+            const endereco = fetch(apiCep)
+                .then(response => response.text())
+                .catch(error => {
+                    alert('Cep inválido')
+                    return
+                })
+
+            endereco.then(result => {
+                const endereco = JSON.parse(result)
+                document.querySelector('.address').value = endereco.logradouro
+                document.querySelector('.district').value = endereco.bairro
+                document.querySelector('.city').value = endereco.localidade
+                document.querySelector('.state').value = endereco.uf
+            })
+        })
+
     </script>
 
 @endsection

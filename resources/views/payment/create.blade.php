@@ -73,7 +73,7 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="cep">CEP</label>
-                                            <input type="text" name="cep" placeholder="00000-000" class="form-control @error('cep') is-invalid @enderror" required>
+                                            <input type="text" name="cep" placeholder="00000-000" class="cep form-control @error('cep') is-invalid @enderror" required>
                                             @error('cep')
                                                 <div class="invalid-feedback">
                                                     {{$message}}
@@ -187,6 +187,10 @@
             date: true,
             delimiter: '/',
             datePattern: ['m', 'Y']
+        })
+        const cep = new Cleave('.cep', {
+            delimiter: '-',
+            blocks: [5, 3]
         })
         const urlBrandsPS = 'https://stc.pagseguro.uol.com.br'
         const uppercaseCardName = document.querySelector('.card_name').addEventListener('keyup', function(event){

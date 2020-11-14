@@ -262,9 +262,10 @@
                             const result = Object.entries(installments)
                             console.log(result);
                             for (let i = 0; result.length > i; i++) {
-                                let option = `<option value="${result[i][1].installmentAmount}">${result[i][1].quantity} X de ${formatInstallmentAmount(result[i][1].installmentAmount)}</option>`
-                                console.log(result[i][1]);
-                                installmentsField.append(option)
+                                let option = document.createElement('option')
+                                option.value = result[i][1].installmentAmount
+                                option.text = result[i][1].quantity + ' X de ' + formatInstallmentAmount(result[i][1].installmentAmount)
+                                installmentsField.add(option)
                             }
                         },
                         error: response => {

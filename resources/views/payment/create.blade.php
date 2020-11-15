@@ -50,7 +50,7 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="card_cvv">Código de segurança</label>
-                                            <input type="text" name="card_cvv" class="form-control" placeholder="Ex: 123" required>
+                                            <input type="text" name="card_cvv" class="form-control card_cvv" placeholder="Ex: 123" maxlength="3" required>
                                             @error('card_cvv')
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -187,6 +187,10 @@
             date: true,
             delimiter: '/',
             datePattern: ['m', 'Y']
+        })
+        const cvv = document.querySelector('.card_cvv')
+        const cleaveCVV = new Cleave(cvv, {
+            numeral: true
         })
         const cep = new Cleave('.cep', {
             delimiter: '-',

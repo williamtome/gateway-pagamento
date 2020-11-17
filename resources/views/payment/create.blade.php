@@ -14,14 +14,14 @@
                 <div class="tab-pane fade show active mt-4" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <form action="{{route('pagamento.store')}}" method="post">
                         @csrf
-                        <input type="hidden" name="brand" id="brand">
+                        <input value="{{ old('brand') }}" type="hidden" name="brand" id="brand">
                         <div class="row">
                             <div class="col-6">
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="card_number">Número do Cartão</label>
-                                            <input type="text" name="card_number" maxlength="16" class="form-control" required>
+                                            <input value="{{ old('card_number') }}" type="text" name="card_number" maxlength="16" class="form-control" required>
                                             @error('card_number')
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -30,7 +30,7 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="card_name">Nome impresso no cartão</label>
-                                            <input type="text" name="card_name" class="card_name form-control" required>
+                                            <input value="{{ old('card_name') }}" type="text" name="card_name" class="card_name form-control" required>
                                             @error('card_name')
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -41,7 +41,7 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="card_validate">Validade</label>
-                                            <input type="text" name="card_validate" class="card_validate form-control" placeholder="MM/AAAA" required>
+                                            <input value="{{ old('card_validate') }}" type="text" name="card_validate" class="card_validate form-control" placeholder="MM/AAAA" required>
                                             @error('card_validate')
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -50,7 +50,7 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="card_cvv">Código de segurança</label>
-                                            <input type="text" name="card_cvv" class="form-control card_cvv" placeholder="Ex: 123" maxlength="3" required>
+                                            <input value="{{ old('card_cvv') }}" type="text" name="card_cvv" class="form-control card_cvv" placeholder="Ex: 123" maxlength="3" required>
                                             @error('card_cvv')
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -59,7 +59,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="installments">Parcelamento</label>
-                                    <select name="installments" class="form-control" required></select>
+                                    <select name="installments" value="{{ old('installments') }}" class="form-control" required></select>
                                     @error('installments')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
@@ -73,7 +73,7 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="cep">CEP</label>
-                                            <input type="text" name="cep" placeholder="00000-000" class="cep form-control @error('cep') is-invalid @enderror" required>
+                                            <input value="{{ old('cep') }}" type="text" name="cep" placeholder="00000-000" class="cep form-control @error('cep') is-invalid @enderror" required>
                                             @error('cep')
                                                 <div class="invalid-feedback">
                                                     {{$message}}
@@ -84,7 +84,7 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="address">Endereço *</label>
-                                            <input type="text" name="address" class="form-control address @error('address') is-invalid @enderror" required readonly>
+                                            <input value="{{ old('address') }}" type="text" name="address" class="form-control address @error('address') is-invalid @enderror" required readonly>
                                             @error('address')
                                                 <div class="invalid-feedback">
                                                     {{$message}}
@@ -95,7 +95,7 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="number">Número*</label>
-                                            <input type="text" name="number" maxlength="20" class="form-control number @error('number') is-invalid @enderror" required>
+                                            <input value="{{ old('number') }}" type="text" name="number" maxlength="20" class="form-control number @error('number') is-invalid @enderror" required>
                                             @error('number')
                                                 <div class="invalid-feedback">
                                                     {{$message}}
@@ -106,7 +106,7 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="complement">Complemento *</label>
-                                            <input type="text" id="complement" name="complement" class="form-control complement @error('complement') is-invalid @enderror" required>
+                                            <input value="{{ old('complement') }}" type="text" id="complement" name="complement" class="form-control complement @error('complement') is-invalid @enderror" required>
                                             @error('complement')
                                             <div class="invalid-feedback">
                                                 {{$message}}
@@ -117,7 +117,7 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="district">Bairro *</label>
-                                            <input type="text" name="district" class="form-control district @error('district') is-invalid @enderror" required readonly>
+                                            <input value="{{ old('district') }}" type="text" name="district" class="form-control district @error('district') is-invalid @enderror" required readonly>
                                             @error('district')
                                             <div class="invalid-feedback">
                                                 {{$message}}
@@ -128,7 +128,7 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="city">Cidade *</label>
-                                            <input type="text" class="form-control city @error('city') is-invalid @enderror" required readonly>
+                                            <input value="{{ old('city') }}" type="text" name="city" class="form-control city @error('city') is-invalid @enderror" required readonly>
                                             @error('city')
                                             <div class="invalid-feedback">
                                                 {{$message}}
@@ -139,7 +139,7 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="state">UF *</label>
-                                            <input type="text" name="state" class="form-control state @error('state') is-invalid @enderror" required readonly>
+                                            <input value="{{ old('state') }}" type="text" name="state" class="form-control state @error('state') is-invalid @enderror" required readonly>
                                             @error('state')
                                             <div class="invalid-feedback">
                                                 {{$message}}
@@ -302,11 +302,11 @@
                 })
 
             endereco.then(result => {
-                const endereco = JSON.parse(result)
-                document.querySelector('.address').value = endereco.logradouro
-                document.querySelector('.district').value = endereco.bairro
-                document.querySelector('.city').value = endereco.localidade
-                document.querySelector('.state').value = endereco.uf
+                const resultado = JSON.parse(result)
+                document.querySelector('.address').value = resultado.logradouro
+                document.querySelector('.district').value = resultado.bairro
+                document.querySelector('.city').value = resultado.localidade
+                document.querySelector('.state').value = resultado.uf
             })
         })
 

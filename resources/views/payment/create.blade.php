@@ -267,16 +267,18 @@
 
                     PagSeguroDirectPayment.getInstallments({
                         amount: {{ $product->price }},
-                        maxInstallmentNoInterest: 12,
+                        maxInstallmentNoInterest: {{ config('app.pagseguro.max_installment_no_interest') }},
                         brand: brand.value,
                         success: response => {
                             let installments = response.installments[brand.value]
                             const result = Object.entries(installments)
                             for (let i = 0; result.length > i; i++) {
                                 let option = document.createElement('option')
-                                option.value = result[i][1].installmentAmount
-                                option.text = result[i][1].quantity + ' X de ' + formatInstallmentAmount(result[i][1].installmentAmount)
-                                installmentsField.add(option)
+                                if (parseInt({{ config('app.pagseguro.max_installment') }}) > i) {
+                                    option.value = result[i][1].installmentAmount
+                                    option.text = result[i][1].quantity + ' X de ' + formatInstallmentAmount(result[i][1].installmentAmount) + ' sem juros'
+                                    installmentsField.add(option)
+                                }
                             }
                         },
                         error: response => {

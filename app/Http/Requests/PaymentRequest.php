@@ -25,12 +25,12 @@ class PaymentRequest extends FormRequest
     public function rules()
     {
         return [
-            'card_number' => 'required|integer|max:16',
+            'card_number' => 'required|digits_between:0,16',
             'card_name' => ['required', 'max:50', new NomeCompleto],
-            'card_validate' => 'required|date_format:mm/aaaa',
-            'card_cvv' => 'required|integer|max:3',
+            'card_validate' => 'required',
+            'card_cvv' => 'required|integer|digits_between:0,3',
             'installments' => 'required',
-            'cep' => 'required|max:8',
+            'cep' => 'required|formato_cep',
             'address' => 'required|max:80',
             'number' => 'required',
             'complement' => 'required|max:40',

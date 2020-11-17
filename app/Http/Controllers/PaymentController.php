@@ -62,6 +62,6 @@ class PaymentController extends Controller
      **/
     public function store(PaymentRequest $request)
     {
-        dd($request->all());
+        dd($request->all(), session()->all());
     }
 }

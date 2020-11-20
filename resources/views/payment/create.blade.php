@@ -222,7 +222,10 @@
                 PagSeguroDirectPayment.setSessionId(hash);
                 obterMeiosDePagamento();
             })
-            .catch(error => console.log(error));
+            .catch(error => {
+                alert('Houve uma instabilidade nos serviços do PagSeguro. Tente novamente, mais tarde.')
+                console.log('ERRO: ',error)
+            });
 
         function obterMeiosDePagamento() {
             PagSeguroDirectPayment.getPaymentMethods({
@@ -239,7 +242,7 @@
                     };
                 },
                 error: function(resopnse) {
-                    if (resopnse.error === true) {
+                    if (resopnse.error) {
                         alert('Desculpe, houve um erro ao tentar obter as opções de pagamento.');
                     }
                 }
@@ -282,7 +285,7 @@
                             }
                         },
                         error: response => {
-                            console.log('erro');
+                            console.log('erro', response);
                         }
                     })
                 },
@@ -297,14 +300,16 @@
 
         document.querySelector('.cep').addEventListener('focusout', () => {
             const endereco = fetch(apiCep)
-                .then(response => response.text())
-                .catch(error => {
-                    alert('Cep inválido')
-                    return
-                })
+                .then(response => console.log(response.text()))
+                .catch(error => console.log('erro'))
 
             endereco.then(result => {
                 const resultado = JSON.parse(result)
+                if (resultado.erro) {
+                    alert('CEP inválido. Por favor, informe o CEP correto.')
+                    console.log(this);
+                    return
+                }
                 document.querySelector('.address').value = resultado.logradouro
                 document.querySelector('.district').value = resultado.bairro
                 document.querySelector('.city').value = resultado.localidade

@@ -23,3 +23,5 @@ Route::resources([
 
 Route::get('/pagamento/pagseguro/credenciais', 'PaymentController@getCredentials')
     ->name('pagamento.pagseguro.credenciais');
+Route::post('/pagamento/salvar-token-hash', 'PaymentController@saveTokenHashCard')
+    ->name('salvar-token-hash');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PaymentRequest;
 use App\Models\Products;
 use Illuminate\Http\Request;
+use PaymentService;
 
 class PaymentController extends Controller
 {
@@ -63,6 +64,7 @@ class PaymentController extends Controller
     public function store(PaymentRequest $request)
     {
         dd($request->all(), session()->all());
+        PaymentService::payWithCreditCard($request, session());
     }
 
     public function saveTokenHashCard(Request $request)

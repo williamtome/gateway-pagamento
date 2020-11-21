@@ -64,4 +64,19 @@ class PaymentController extends Controller
     {
         dd($request->all(), session()->all());
     }
+
+    public function saveTokenHashCard(Request $request)
+    {
+        $cartaoCliente = [
+            'token' => $request->token,
+            'hash' => $request->hash
+        ];
+
+        session()->put('cartao_cliente', $cartaoCliente);
+
+        if ($request->token && $request->hash)
+            return response()->json(['success' => true], 200);
+
+        return response()->json(['success' => false]);
+    }
 }

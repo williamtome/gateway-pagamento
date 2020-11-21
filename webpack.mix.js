@@ -15,4 +15,5 @@ mix.styles('node_modules/bootstrap/dist/css/bootstrap.min.css', 'public/css/boot
     .scripts('node_modules/jquery/dist/jquery.min.js', 'public/js/jquery.min.js')
     .scripts('node_modules/bootstrap/dist/js/bootstrap.bundle.min.js', 'public/js/bootstrap.min.js')
     .scripts('node_modules/cleave.js/dist/cleave.min.js', 'public/js/cleave.min.js')
-    .scripts('node_modules/cleave.js/dist/addons/cleave-phone.br.js', 'public/js/cleave-phone.br.js');
+    .scripts('node_modules/cleave.js/dist/addons/cleave-phone.br.js', 'public/js/cleave-phone.br.js')
+    .scripts('node_modules/axios/dist/axios.min.js', 'public/js/axios.min.js');

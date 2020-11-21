@@ -3,5 +3,6 @@
     "/js/jquery.min.js": "/js/jquery.min.js",
     "/js/bootstrap.min.js": "/js/bootstrap.min.js",
     "/js/cleave.min.js": "/js/cleave.min.js",
-    "/js/cleave-phone.br.js": "/js/cleave-phone.br.js"
+    "/js/cleave-phone.br.js": "/js/cleave-phone.br.js",
+    "/js/axios.min.js": "/js/axios.min.js"
 }

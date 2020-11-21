@@ -181,6 +181,7 @@
     <script src="{{ config('app.pagseguro.url_js') }}"></script>
     <script src="{{ asset('js/cleave.min.js') }}"></script>
     <script src="{{ asset('js/cleave-phone.br.js') }}"></script>
+    <script src="{{ asset('js/axios.min.js') }}"></script>
     <script>
         const validate = document.querySelector('.card_validate')
         const cleaveValidate = new Cleave(validate, {
@@ -315,6 +316,30 @@
                 document.querySelector('.city').value = resultado.localidade
                 document.querySelector('.state').value = resultado.uf
             })
+        })
+
+        document.querySelector('.card_cvv').addEventListener('focusout', () => {
+            PagSeguroDirectPayment.createCardToken({
+                cardNumber: cardNumberField.value,
+                brand: brand.value,
+                cvv: cvv.value,
+                expirationMonth: validate.value.substr(0, 2),
+                expirationYear: validate.value.substr(3, 6),
+                success: function (response) {
+                    const token = response.card.token
+                    const hash = PagSeguroDirectPayment.getSenderHash()
+                    axios.post("{{ route('salvar-token-hash') }}", { token: token, hash: hash })
+                        .then(res => {
+                            if (res.data.success == false)
+                                alert('Há problemas nos dados informados referentes ao seu cartão.')
+                        })
+                        .catch(err => console.error(err))
+                },
+                error: function (error) {
+                    console.log('ERRO', error);
+                }
+            })
+
         })
 
     </script>

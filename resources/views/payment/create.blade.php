@@ -300,7 +300,7 @@
 
         document.querySelector('.cep').addEventListener('focusout', () => {
             const endereco = fetch(apiCep)
-                .then(response => console.log(response.text()))
+                .then(response => response.text())
                 .catch(error => console.log('erro'))
 
             endereco.then(result => {

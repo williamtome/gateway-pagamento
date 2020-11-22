@@ -9,14 +9,14 @@ Este projeto tem como objetivo aprender como integrar uma aplicação Laravel co
 * [Javascript](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript)
 * [Bootstrap](https://getbootstrap.com/)
 * [SDK do Pagseguro](https://github.com/pagseguro/pagseguro-sdk-php)
-* [Cleave.js](https://nosir.github.io/cleave.js/) - Format your <input/> content when you are typing
+* [Cleave.js](https://nosir.github.io/cleave.js/) - Format your input content when you are typing
 
 ## Requisitos
 
 Você precisar ter instalado na sua máquina:
 
 * Servidor Web (XAMPP, WAMPP, etc.) com PHP, MySQL e Apache.
-* [NodeJS - versão que seja LTS](https://nodejs.org/en/)
+* [NodeJS - versão que seja LTS](https://nodejs.org/en/) ou [Yarn](https://yarnpkg.com/)
 * [Composer](https://getcomposer.org/)
 
 ## Instruções

@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="row">
+        <h1>Implementar no projeto o pacote Laravel Charts: https://charts.erik.cat/</h1>
         @foreach ($products as $product)
             <div class="col-sm-4">
                 <div class="card">

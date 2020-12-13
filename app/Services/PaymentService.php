@@ -11,6 +11,8 @@ class PaymentService
 {
     protected $areaCode;
     protected $phone;
+    protected $installments;
+    protected $installmentValue;
 
     protected const CURRENCY = 'BRL';
     protected const MODE = 'DEFAULT';
@@ -32,6 +34,9 @@ class PaymentService
         $product = Products::find(session()->get('carrinho.item'));
         $this->areaCode = substr(session()->get('cliente.phone'), 0, 2);
         $this->phone = substr(session()->get('cliente.phone'), 2, strlen(session()->get('cliente.phone')));
+        $installments = explode(',', $request->installments);
+        $this->installments = $installments[0];
+        $this->installmentValue = $installments[1];
 
         $payment = new CreditCard();
         $payment->setCurrency($this->CURRENCY);
@@ -58,7 +63,9 @@ class PaymentService
 
         $payment->setToken($request->token);
 
-        $payment->setInstallment()->withParameters($parcelas, $valor);
+        $payment->setInstallment()->withParameters($this->installments, $this->installmentValue);
+
+        
 
     }
 

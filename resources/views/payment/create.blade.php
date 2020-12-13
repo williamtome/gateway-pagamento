@@ -228,7 +228,7 @@
                 console.log('ERRO: ',error)
             });
 
-        function obterMeiosDePagamento() {
+        const obterMeiosDePagamento = () => {
             PagSeguroDirectPayment.getPaymentMethods({
                 amount: {{ $product->price }},
                 success: function(response) {
@@ -279,7 +279,7 @@
                             for (let i = 0; result.length > i; i++) {
                                 let option = document.createElement('option')
                                 if (parseInt({{ config('app.pagseguro.max_installment') }}) > i) {
-                                    option.value = result[i][1].installmentAmount
+                                    option.value = result[i][1].quantity + ',' + result[i][1].installmentAmount
                                     option.text = result[i][1].quantity + ' X de ' + formatInstallmentAmount(result[i][1].installmentAmount) + ' sem juros'
                                     installmentsField.add(option)
                                 }
@@ -297,7 +297,6 @@
             })
 
         })
-
 
         document.querySelector('.cep').addEventListener('focusout', () => {
             const endereco = fetch(apiCep)

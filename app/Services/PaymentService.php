@@ -13,6 +13,7 @@ class PaymentService
     protected $phone;
     protected $installments;
     protected $installmentValue;
+    protected $cpf;
 
     protected const CURRENCY = 'BRL';
     protected const MODE = 'DEFAULT';
@@ -37,6 +38,7 @@ class PaymentService
         $installments = explode(',', $request->installments);
         $this->installments = $installments[0];
         $this->installmentValue = $installments[1];
+        $this->cpf = str_replace(['.', '-'], '', session()->get('cliente.document'));
 
         $payment = new CreditCard();
         $payment->setCurrency($this->CURRENCY);
@@ -48,6 +50,8 @@ class PaymentService
             1,
             $product->price
         );
+
+        // Informações do cliente:
         $payment->setSender()->setHash(session()->get('cartao_cliente.hash'));
         $payment->setSender()->setName(session()->get('cliente.name'));
         $payment->setSender()->setEmail(session()->get('cliente.email'));
@@ -55,17 +59,28 @@ class PaymentService
             substr(session()->get('cliente.phone'), 0, 2),
             substr(session()->get('cliente.phone'), 2, strlen(trim(session()->get('cliente.phone'))))
         );
-
         $payment->setSender()->setDocument()->withParameters(
             'CPF',
-            str_replace(['.', '-'], '', session()->get('cliente.document'))
+            $this->cpf
         );
 
+        // Cartão do cliente tokenizado:
         $payment->setToken($request->token);
 
+        // Quantidade de parcelas e valor da compra do cliente:
         $payment->setInstallment()->withParameters($this->installments, $this->installmentValue);
 
-        
+        // Dados do titular do cartão:
+        $payment->setHolder()->setBirthdate();
+        $payment->setHolder()->setName('João Comprador'); // Equals in Credit Card
+        $payment->setHolder()->setPhone()->withParameters(
+            $this->areaCode,
+            $this->phone
+        );
+        $payment->setHolder()->setDocument()->withParameters(
+            'CPF',
+            $this->cpf
+        );
 
     }
 

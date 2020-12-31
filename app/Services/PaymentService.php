@@ -16,8 +16,8 @@ class PaymentService
     protected $installmentValue;
     protected $cpf;
 
-    protected const CURRENCY = 'BRL';
-    protected const MODE = 'DEFAULT';
+    const CURRENCY = 'BRL';
+    const MODE = 'DEFAULT';
 
     public function __construct()
     {
@@ -43,8 +43,8 @@ class PaymentService
         $this->cpf = str_replace(['.', '-'], '', $session['cliente']['document']);
 
         $payment = new CreditCard();
-        $payment->setCurrency($this->CURRENCY);
-        $payment->setMode($this->MODE);
+        $payment->setCurrency($this::CURRENCY);
+        $payment->setMode($this::MODE);
         $payment->setReference($product->id);
         $payment->addItems()->withParameters(
             $product->id,
@@ -92,7 +92,7 @@ class PaymentService
             dd($result);
 
         } catch (\Exception $e) {
-
+            echo '<pre>';
             die($e->getMessage());
 
         }

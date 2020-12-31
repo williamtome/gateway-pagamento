@@ -69,7 +69,7 @@ class PaymentService
         );
 
         // Cartão do cliente tokenizado:
-        $payment->setToken($request->token);
+        $payment->setToken($session['cartao_cliente']['token']);
 
         // Quantidade de parcelas e valor da compra do cliente:
         $payment->setInstallment()->withParameters($this->installments, $this->installmentValue);

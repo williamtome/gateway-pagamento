@@ -35,9 +35,10 @@ class PaymentService
     {
         $product = Products::find($session['carrinho']['item']);
         $installments = explode(',', $request->installments);
+        $phone = trim(preg_replace("/(?<=\d)\s+(?=\d)/", "", $session['cliente']['phone']));
 
-        $this->areaCode = substr($session['cliente']['phone'], 0, 2);
-        $this->phone = substr($session['cliente']['phone'], 2, strlen($session['cliente']['phone']));
+        $this->areaCode = substr($phone, 0, 2);
+        $this->phone = substr($phone, 2, strlen($phone));
         $this->installments = $installments[0];
         $this->installmentValue = $installments[1];
         $this->cpf = str_replace(['.', '-'], '', $session['cliente']['document']);
@@ -58,8 +59,8 @@ class PaymentService
         $payment->setSender()->setName($session['cliente']['name']);
         $payment->setSender()->setEmail($session['cliente']['email']);
         $payment->setSender()->setPhone()->withParameters(
-            substr($session['cliente']['phone'], 0, 2),
-            substr($session['cliente']['phone'], 2, strlen(trim($session['cliente']['phone'])))
+            $this->areaCode,
+            $this->phone
         );
         $payment->setSender()->setDocument()->withParameters(
             'CPF',

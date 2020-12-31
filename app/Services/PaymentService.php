@@ -33,6 +33,7 @@ class PaymentService
 
     public function payWithCreditCard(Request $request, array $session)
     {
+        dd($request->all(), $session);
         $product = Products::find($session['carrinho']['item']);
         $installments = explode(',', $request->installments);
         $phone = trim(preg_replace("/(?<=\d)\s+(?=\d)/", "", $session['cliente']['phone']));
@@ -83,6 +84,17 @@ class PaymentService
         $payment->setHolder()->setDocument()->withParameters(
             'CPF',
             $this->cpf
+        );
+
+        $payment->setShipping()->setAddress()->withParameters(
+            $request->address,
+            $request->number,
+            $request->district,
+            $request->cep,
+            $request->city,
+            $request->state,
+            $request->country,
+            $request->complement
         );
 
         try {

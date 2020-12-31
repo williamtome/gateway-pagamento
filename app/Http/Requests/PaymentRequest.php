@@ -27,7 +27,8 @@ class PaymentRequest extends FormRequest
         return [
             'card_number' => 'required|digits_between:0,16',
             'card_name' => ['required', 'max:50', new NomeCompleto],
-            'card_validate' => 'required',
+            'card_validate' => 'required|date_format:m/Y',
+            'birth_date' => 'required|date_format:d/m/Y',
             'card_cvv' => 'required|integer|digits_between:0,3',
             'installments' => 'required',
             'cep' => 'required|formato_cep',

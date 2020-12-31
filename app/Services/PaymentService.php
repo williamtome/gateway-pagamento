@@ -1,8 +1,9 @@
 <?php
 
+namespace App\Services;
+
 use App\Models\Products;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
 use PagSeguro\Configuration\Configure;
 use PagSeguro\Domains\Requests\DirectPayment\CreditCard;
 use PagSeguro\Library;
@@ -30,15 +31,16 @@ class PaymentService
         Configure::setLog(true, storage_path('logs/pagseguro-'. date('Y-m-d') .'.txt'));
     }
 
-    public function payWithCreditCard(Request $request, Session $session)
+    public function payWithCreditCard(Request $request, array $session)
     {
-        $product = Products::find(session()->get('carrinho.item'));
-        $this->areaCode = substr(session()->get('cliente.phone'), 0, 2);
-        $this->phone = substr(session()->get('cliente.phone'), 2, strlen(session()->get('cliente.phone')));
+        $product = Products::find($session['carrinho']['item']);
         $installments = explode(',', $request->installments);
+
+        $this->areaCode = substr($session['cliente']['phone'], 0, 2);
+        $this->phone = substr($session['cliente']['phone'], 2, strlen($session['cliente']['phone']));
         $this->installments = $installments[0];
         $this->installmentValue = $installments[1];
-        $this->cpf = str_replace(['.', '-'], '', session()->get('cliente.document'));
+        $this->cpf = str_replace(['.', '-'], '', $session['cliente']['document']);
 
         $payment = new CreditCard();
         $payment->setCurrency($this->CURRENCY);
@@ -52,12 +54,12 @@ class PaymentService
         );
 
         // Informações do cliente:
-        $payment->setSender()->setHash(session()->get('cartao_cliente.hash'));
-        $payment->setSender()->setName(session()->get('cliente.name'));
-        $payment->setSender()->setEmail(session()->get('cliente.email'));
+        $payment->setSender()->setHash($session['cartao_cliente']['hash']);
+        $payment->setSender()->setName($session['cliente']['name']);
+        $payment->setSender()->setEmail($session['cliente']['email']);
         $payment->setSender()->setPhone()->withParameters(
-            substr(session()->get('cliente.phone'), 0, 2),
-            substr(session()->get('cliente.phone'), 2, strlen(trim(session()->get('cliente.phone'))))
+            substr($session['cliente']['phone'], 0, 2),
+            substr($session['cliente']['phone'], 2, strlen(trim($session['cliente']['phone'])))
         );
         $payment->setSender()->setDocument()->withParameters(
             'CPF',
@@ -71,8 +73,8 @@ class PaymentService
         $payment->setInstallment()->withParameters($this->installments, $this->installmentValue);
 
         // Dados do titular do cartão:
-        $payment->setHolder()->setBirthdate();
-        $payment->setHolder()->setName('João Comprador'); // Equals in Credit Card
+        $payment->setHolder()->setBirthdate($request->birth_date);
+        $payment->setHolder()->setName($session['cliente']['name']); // Equals in Credit Card
         $payment->setHolder()->setPhone()->withParameters(
             $this->areaCode,
             $this->phone

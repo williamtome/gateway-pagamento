@@ -57,12 +57,22 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="installments">Parcelamento</label>
-                                    <select name="installments" value="{{ old('installments') }}" class="form-control" required></select>
-                                    @error('installments')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                    @enderror
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="installments">Parcelamento</label>
+                                            <select name="installments" value="{{ old('installments') }}" class="form-control" required></select>
+                                            @error('installments')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="birth_date">Data de Nascimento</label>
+                                            <input type="text" name="birth_date" placeholder="dd/mm/aaaa" class="form-control birth_date">
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Bandeiras aceitas</label>
@@ -188,6 +198,12 @@
             date: true,
             delimiter: '/',
             datePattern: ['m', 'Y']
+        })
+        const birthDate = document.querySelector('.birth_date')
+        const cleaveBirthDate = new Cleave(birthDate, {
+            date: true,
+            delimiter: '/',
+            datePattern: ['d', 'm', 'Y']
         })
         const cvv = document.querySelector('.card_cvv')
         const cleaveCVV = new Cleave(cvv, {

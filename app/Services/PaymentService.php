@@ -84,6 +84,19 @@ class PaymentService
             $this->cpf
         );
 
+        try {
+            $result = $payment->register(
+                Configure::getAccountCredentials()
+            );
+
+            dd($result);
+
+        } catch (\Exception $e) {
+
+            die($e->getMessage());
+
+        }
+
     }
 
 }

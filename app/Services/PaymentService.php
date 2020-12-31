@@ -22,8 +22,8 @@ class PaymentService
     public function __construct()
     {
         Library::initialize();
-        Library::cmsVersion()->setName("Click Telemedicina")->setRelease("0.0.1");
-        Library::moduleVersion()->setName("Click Telemedicina")->setRelease("0.0.1");
+        Library::cmsVersion()->setName("Gateway de Pagamento")->setRelease("1.0.0");
+        Library::moduleVersion()->setName("Gateway de Pagamento")->setRelease("1.0.0");
 
         Configure::setCharset('UTF-8');
         Configure::setAccountCredentials(config('app.pagseguro.email'), config('app.pagseguro.token'));

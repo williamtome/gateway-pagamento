@@ -78,6 +78,30 @@
                                     <label>Bandeiras aceitas</label>
                                     <div id="brands"></div>
                                 </div>
+
+                                <div class="row mt-3 mb-3">
+                                    <div class="col-12">
+                                        <div class="form-group text-center">
+                                            <label class="checkbox-inline">
+                                                <strong>O seu endereço de entrega é o mesmo que o endereço da fatura?</strong>
+                                            </label>
+                                            <br>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input endereco-entrega-igual-endereco-fatura"
+                                                    type="radio" name="endereco_entrega_igual_endereco_fatura"
+                                                    value="S" required>
+                                                <label class="form-check-label">Sim</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input endereco-entrega-igual-endereco-fatura"
+                                                    type="radio" name="endereco_entrega_igual_endereco_fatura"
+                                                    value="N">
+                                                <label class="form-check-label">Não</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <h5>informações de fatura</h5>
                                 <div class="row">
                                     <div class="col-6">

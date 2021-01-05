@@ -64,7 +64,6 @@ class PaymentController extends Controller
      **/
     public function store(PaymentRequest $request)
     {
-        // dd($request->all(), session()->all());
         $session = Session::all();
         $paymentService = new PaymentService();
         $paymentService->payWithCreditCard($request, $session);

@@ -42,7 +42,15 @@ class CustomerController extends Controller
             'name' => $request->name,
             'document' => $request->cpf,
             'email' => $request->email,
-            'phone' => $request->phone
+            'phone' => $request->phone,
+            'cep_customer' => $request->cep_customer,
+            'street_customer' => $request->street_customer,
+            'number_customer' => $request->number_customer,
+            'complement_customer' => $request->complement_customer,
+            'district_customer' => $request->district_customer,
+            'city_customer' => $request->city_customer,
+            'state_customer' => $request->state_customer,
+            'country_customer' => $request->country_customer
         ];
         $request->session()->put('cliente', $customer);
         return redirect()->route('pagamento.create');

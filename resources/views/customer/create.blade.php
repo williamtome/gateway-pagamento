@@ -186,18 +186,7 @@
 
     <script src="{{ asset('js/cleave.min.js') }}"></script>
     <script src="{{ asset('js/cleave-phone.br.js') }}"></script>
-
-    <script>
-        const inputPhone = document.querySelector('.phone');
-        const cleavePhone = new Cleave(inputPhone, {
-            phone: true,
-            phoneRegionCode: 'BR'
-        });
-        const cpf = new Cleave('.cpf', {
-            delimiters: ['.', '.', '-'],
-            blocks: [3, 3, 3, 2],
-            uppercase: true
-        });
-    </script>
+    <script src="{{ asset('js/axios.min.js') }}"></script>
+    <script src="{{ asset('js/customer.js') }}"></script>
 
 @endsection

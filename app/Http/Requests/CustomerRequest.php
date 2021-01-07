@@ -28,7 +28,15 @@ class CustomerRequest extends FormRequest
             'name' => ['required', new NomeCompleto()],
             'cpf' => 'required|cpf',
             'email' => 'required|email',
-            'phone' => 'required|max:13'
+            'phone' => 'required|max:13',
+            'cep_customer' => 'required|formato_cep',
+            'street_customer' => 'required|string',
+            'number_customer' => 'required|integer',
+            'complement_customer' => 'required',
+            'district_customer' => 'required',
+            'city_customer' => 'required',
+            'state_customer' => 'required',
+            'country_customer' => 'required'
         ];
     }
 
@@ -46,6 +54,8 @@ class CustomerRequest extends FormRequest
             'email.required' => 'O campo e-mail é obrigatório.',
             'email.email' => 'O e-mail informado está incorreto.',
             'phone.required' => 'O campo telefone é obrigatório.',
+            'cep_customer.required' => 'O campo CEP é obrigatório.',
+            'cep_customer.formato_cep' => 'O campo CEP não está no formato correto.'
         ];
     }
 }

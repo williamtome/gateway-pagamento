@@ -102,8 +102,10 @@
                                     </div>
                                 </div>
 
-                                <h5>informações de fatura</h5>
-                                <div class="row">
+                                <div id="address_billing" class="row d-none">
+                                    <div class="col-12">
+                                        <h5>informações de fatura</h5>
+                                    </div>
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="cep">CEP</label>
@@ -256,6 +258,20 @@
             img.alt = text
             return img
         }
+
+        const checkboxBilling = document.querySelectorAll('.endereco-entrega-igual-endereco-fatura')
+
+        checkboxBilling.forEach(checkbox => {
+            checkbox.addEventListener('click', function (ev) {
+                const value = ev.target.value
+                const addressBilling = document.querySelector('#address_billing')
+                if (value === 'N') {
+                    addressBilling.classList.remove('d-none')
+                } else {
+                    addressBilling.classList.add('d-none')
+                }
+            })
+        })
 
         fetch("{{ route('pagamento.pagseguro.credenciais') }}")
             .then(response => response.text())

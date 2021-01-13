@@ -109,7 +109,7 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="cep">CEP</label>
-                                            <input value="{{ old('cep') }}" type="text" name="cep" placeholder="00000-000" class="cep form-control @error('cep') is-invalid @enderror" required>
+                                            <input value="{{ old('cep') }}" type="text" name="cep" placeholder="00000-000" class="cep form-control @error('cep') is-invalid @enderror">
                                             @error('cep')
                                                 <div class="invalid-feedback">
                                                     {{$message}}
@@ -120,7 +120,7 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="address">Endereço *</label>
-                                            <input value="{{ old('address') }}" type="text" name="address" class="form-control address @error('address') is-invalid @enderror" required readonly>
+                                            <input value="{{ old('address') }}" type="text" name="address" class="form-control address @error('address') is-invalid @enderror" readonly>
                                             @error('address')
                                                 <div class="invalid-feedback">
                                                     {{$message}}
@@ -131,7 +131,7 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="number">Número*</label>
-                                            <input value="{{ old('number') }}" type="text" name="number" maxlength="20" class="form-control number @error('number') is-invalid @enderror" required>
+                                            <input value="{{ old('number') }}" type="text" name="number" maxlength="20" class="form-control number @error('number') is-invalid @enderror">
                                             @error('number')
                                                 <div class="invalid-feedback">
                                                     {{$message}}
@@ -142,7 +142,7 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="complement">Complemento *</label>
-                                            <input value="{{ old('complement') }}" type="text" id="complement" name="complement" class="form-control complement @error('complement') is-invalid @enderror" required>
+                                            <input value="{{ old('complement') }}" type="text" id="complement" name="complement" class="form-control complement @error('complement') is-invalid @enderror">
                                             @error('complement')
                                             <div class="invalid-feedback">
                                                 {{$message}}
@@ -153,7 +153,7 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="district">Bairro *</label>
-                                            <input value="{{ old('district') }}" type="text" name="district" class="form-control district @error('district') is-invalid @enderror" required readonly>
+                                            <input value="{{ old('district') }}" type="text" name="district" class="form-control district @error('district') is-invalid @enderror" readonly>
                                             @error('district')
                                             <div class="invalid-feedback">
                                                 {{$message}}
@@ -164,7 +164,7 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="city">Cidade *</label>
-                                            <input value="{{ old('city') }}" type="text" name="city" class="form-control city @error('city') is-invalid @enderror" required readonly>
+                                            <input value="{{ old('city') }}" type="text" name="city" class="form-control city @error('city') is-invalid @enderror" readonly>
                                             @error('city')
                                             <div class="invalid-feedback">
                                                 {{$message}}
@@ -175,7 +175,7 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="state">UF *</label>
-                                            <input value="{{ old('state') }}" type="text" name="state" class="form-control state @error('state') is-invalid @enderror" required readonly>
+                                            <input value="{{ old('state') }}" type="text" name="state" class="form-control state @error('state') is-invalid @enderror" readonly>
                                             @error('state')
                                             <div class="invalid-feedback">
                                                 {{$message}}
@@ -265,10 +265,17 @@
             checkbox.addEventListener('click', function (ev) {
                 const value = ev.target.value
                 const addressBilling = document.querySelector('#address_billing')
+                const inputsBilling = addressBilling.querySelectorAll('input')
                 if (value === 'N') {
                     addressBilling.classList.remove('d-none')
+                    inputsBilling.forEach(input => {
+                        input.setAttribute('required', 'required')
+                    })
                 } else {
                     addressBilling.classList.add('d-none')
+                    inputsBilling.forEach(input => {
+                        input.removeAttribute('required')
+                    })
                 }
             })
         })

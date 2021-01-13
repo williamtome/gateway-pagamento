@@ -31,14 +31,15 @@ class PaymentRequest extends FormRequest
             'birth_date' => 'required|date_format:d/m/Y',
             'card_cvv' => 'required|integer|digits_between:0,3',
             'installments' => 'required',
-            'cep' => 'required|formato_cep',
-            'address' => 'required|max:80',
-            'number' => 'required',
-            'complement' => 'required|max:40',
-            'district' => 'required|max:60',
-            'city' => 'required|min:2|max:60',
-            'state' => 'required',
-            'country' => 'required',
+            'endereco_entrega_igual_endereco_fatura' => 'required',
+            'cep' => 'required_if:endereco_entrega_igual_endereco_fatura,N',
+            'address' => 'required_if:endereco_entrega_igual_endereco_fatura,N',
+            'number' => 'required_if:endereco_entrega_igual_endereco_fatura,N',
+            'complement' => 'required_if:endereco_entrega_igual_endereco_fatura,N',
+            'district' => 'required_if:endereco_entrega_igual_endereco_fatura,N',
+            'city' => 'required_if:endereco_entrega_igual_endereco_fatura,N',
+            'state' => 'required_if:endereco_entrega_igual_endereco_fatura,N',
+            'country' => 'required_if:endereco_entrega_igual_endereco_fatura,N',
         ];
     }
 

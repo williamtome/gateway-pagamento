@@ -125,7 +125,8 @@ return [
         'url_js' => env('PAGSEGURO_URL_JS'),
         'transaction' => env('PAGSEGURO_URL_TRANSACTION'),
         'max_installment' => env('PAGSEGURO_MAX_INSTALLMENT'),
-        'max_installment_no_interest' => env('PAGSEGURO_MAX_INSTALLMENT_NO_INTEREST')
+        'max_installment_no_interest' => env('PAGSEGURO_MAX_INSTALLMENT_NO_INTEREST'),
+        'no_interest_installment_quantity' => env('PAGSEGURO_NO_INTEREST_INSTALLMENT_QUANTITY'),
     ],
 
     'key' => env('APP_KEY'),

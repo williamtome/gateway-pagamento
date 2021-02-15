@@ -335,6 +335,7 @@
                     PagSeguroDirectPayment.getInstallments({
                         amount: {{ $product->price }},
                         maxInstallmentNoInterest: {{ config('app.pagseguro.max_installment_no_interest') }},
+                        noInterestInstallmentQuantity: {{config('app.pagseguro.no_interest_installment_quantity')}},
                         brand: brand.value,
                         success: response => {
                             let installments = response.installments[brand.value]

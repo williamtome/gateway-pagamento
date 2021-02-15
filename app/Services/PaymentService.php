@@ -39,8 +39,9 @@ class PaymentService
 
         $this->areaCode = substr($phone, 0, 2);
         $this->phone = substr($phone, 2, strlen($phone));
-        $this->installments = $installments[0];
-        $this->installmentValue = $installments[1];
+        $this->installments = (int) $installments[0];
+        $this->installmentValue = (float) $installments[1];
+        // dd($this->installments, $this->installmentValue);
         $this->cpf = str_replace(['.', '-'], '', $session['cliente']['document']);
 
         $payment = new CreditCard();
@@ -85,27 +86,48 @@ class PaymentService
             $this->cpf
         );
 
-        $payment->setShipping()->setAddress()->withParameters(
-            $request->address,
-            $request->number,
-            $request->district,
-            $request->cep,
-            $request->city,
-            $request->state,
-            $request->country,
-            $request->complement
-        );
+        $payment->setShipping()->setAddressRequired()->withParameters(false);
+        if ($request->endereco_entrega_igual_endereco_fatura === 'S') {
 
-        $payment->setBilling()->setAddress()->withParameters(
-            $request->address,
-            $request->number,
-            $request->district,
-            $request->cep,
-            $request->city,
-            $request->state,
-            $request->country,
-            $request->complement
-        );
+            // $payment->setShipping()->setAddress()->withParameters(
+            //     $session['cliente']['street_customer'],
+            //     $session['cliente']['number_customer'],
+            //     $session['cliente']['district_customer'],
+            //     $session['cliente']['cep_customer'],
+            //     $session['cliente']['city_customer'],
+            //     $session['cliente']['state_customer'],
+            //     $session['cliente']['country_customer'],
+            //     $session['cliente']['complement_customer']
+            // );
+
+            $payment->setBilling()->setAddress()->withParameters(
+                $session['cliente']['street_customer'],
+                $session['cliente']['number_customer'],
+                $session['cliente']['district_customer'],
+                $session['cliente']['cep_customer'],
+                $session['cliente']['city_customer'],
+                $session['cliente']['state_customer'],
+                $session['cliente']['country_customer'],
+                $session['cliente']['complement_customer']
+            );
+
+        } else {
+
+
+
+            $payment->setBilling()->setAddress()->withParameters(
+                $request->address,
+                $request->number,
+                $request->district,
+                $request->cep,
+                $request->city,
+                $request->state,
+                $request->country,
+                $request->complement
+            );
+
+        }
+
 
         try {
             $result = $payment->register(
